@@ -1,0 +1,40 @@
+<%= form_with(model: movimento, local: true) do |form| %>
+  <% if movimento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movimento.errors.count, "error") %> prohibited this movimento from being saved:</h2>
+
+      <ul>
+      <% movimento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :data_competencia, "Data da competência" %>
+    <%= form.date_field :data_competencia, :class => "form-control"%>
+  </div>
+  
+  <div class="field form-group">
+    <%= form.label :data_vencimento, "Data do vencimento" %>
+    <%= form.date_field :data_vencimento, :class => "form-control"%>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :descricao, "Descrição" %>
+    <%= form.text_field :descricao, :class => "form-control"%>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :valor %>
+    <%= form.number_field :valor, :step => 0.01, :class => "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :conta_id %>
+    <%= form.select :conta_id, @contas.collect { |conta| [conta.conta_numero, conta.id] }, {}, { :class => 'form-control' } %>
+  </div>
+  <div class="actions">
+    <%= form.submit :class => 'btn btn-success' %>
+  </div>
+<% end %>

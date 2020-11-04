@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Projeto</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   </head>
+   <body>
+     <% if usuario_signed_in? %>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+          <a class="navbar-brand py-2" href="#"><%= image_tag("san-juan.png", :alt => "San Juan Advogados", :height => '50') %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Início</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Cadastro Financeiro
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/bancos">Bancos</a>
+                  <a class="dropdown-item" href="/contas">Contas</a>
+                  <%= link_to 'Favorecidos/Sacados', 'pessoas', {:class => 'dropdown-item'} %>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/movimentos">Movimentação</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+             <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <%= link_to 'Logout', destroy_usuario_session_path,  { :class => "nav-link", method: :delete } %>        
+              </li>
+            </ul>
+            </span>
+          </div>
+        </nav>
+        <% else %>
+      <nav class="menu" id="theMenu">
+         <div class="menu-wrap">
+            <h1 class="logo"><a href="index.html#home">San Juan</a></h1>
+            <i class="fa fa-times-circle menu-close"></i>
+            <% if usuario_signed_in? %>
+            <a href=""class="smoothscroll">Financeiro</a>
+            <%= link_to 'Bancos', 'bancos', {:class => 'nav-link'} %>
+            <%= link_to 'Contas', 'contas', {:class => 'nav-link'} %>
+            <%= link_to 'Favorecidos/Sacados', 'pessoas', {:class => 'nav-link'} %>
+            <%= link_to 'Movimentação', 'movimentos', {:class => 'nav-link'} %>
+            <%= link_to 'Logout', destroy_usuario_session_path,  { :class => "nav-link", method: :delete } %>
+            <% else %>
+            <a href="#home" class="smoothscroll">Início</a>
+            <a href="#services" class="smoothscroll">Serviços</a>
+            <a href="#about" class="smoothscroll">Sobre</a>
+            <a href="#mapa" class="smoothscroll">Localização</a>
+            <a href="#contact" class="smoothscroll">Contato</a>
+            <%= link_to 'Login', new_usuario_session_path, { :class => "nav-link" }  %> 
+            <% end %>
+         </div>
+         <!-- Menu button -->
+         <div id="menuToggle"><i class="fa fa-bars"></i></div>
+      </nav>
+      <% end %>
+      <%= yield %>
+      <div id="copyrights">
+         <div>
+            <p>
+               &copy; Copyrights <strong>San Juan</strong>. Direitos Reservados
+            </p>
+         </div>
+      </div>
+   </body>
+</html>
